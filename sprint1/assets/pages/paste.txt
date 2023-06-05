@@ -1,0 +1,5 @@
+href="../../index.html"><i class="fa-solid fa-house"></i         > Home</a>
+href="./events.html"><i class="fa-solid fa-calendar-days"></i > Upcoming Events</a>
+href="./past-events.html"><i class="fa-solid fa-clock"></i         > Past Events</a>
+href="./contact.html"><i class="fa-solid fa-address-book"></i  > Contact</a>
+href="./stats.html"><i class="fa-solid fa-chart-simple"></i  > Stats</a>
