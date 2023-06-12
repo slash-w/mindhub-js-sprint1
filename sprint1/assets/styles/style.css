@@ -5,12 +5,13 @@
     --clr-enh: #9E579D;
     --clr-fnt: #FC85AE;
     */
-
-    --clr-bgr: #f26f22;
-    --clr-ctt: #252A34;
+    --clr: #2c53a8;
+    --clr-bgr: #252A34;
+    --clr-ctt: #191c20;
     --clr-enh: #ff2e63;
     --clr-fnt: #EAEAEA;
-    --clr-shd: #b2152a;
+    --clr-shd: #bbd2dd;
+    --clr-enh-val: 255, 46, 99;
 }
 
 p{
@@ -21,6 +22,8 @@ p{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 a{
@@ -43,14 +46,182 @@ a:hover{
 }
 
 body{
-    background: rgb(242,111,34);
-    background: linear-gradient(110deg, rgba(242,111,34,1) 0%, rgba(242,138,34,1) 35%, rgba(242,131,34,1) 75%, rgba(242,138,34,1) 100%);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1020%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(37%2c 42%2c 52%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c127 C 96%2c114 288%2c52.4 480%2c62 C 672%2c71.6 768%2c182.8 960%2c175 C 1152%2c167.2 1344%2c53.4 1440%2c23L1440 560L0 560z' fill='rgba(255%2c 46%2c 99%2c 0.8)'%3e%3c/path%3e%3cpath d='M 0%2c338 C 96%2c314.6 288%2c227.4 480%2c221 C 672%2c214.6 768%2c304 960%2c306 C 1152%2c308 1344%2c246 1440%2c231L1440 560L0 560z' fill='rgba(37%2c 42%2c 52%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c437 C 96%2c454.6 288%2c532.2 480%2c525 C 672%2c517.8 768%2c401.6 960%2c401 C 1152%2c400.4 1344%2c497.8 1440%2c522L1440 560L0 560z' fill='rgba(255%2c 46%2c 99%2c 0.8)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1020'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-nav{
+/*      NAV ONLY FOR LOW RES     */
+.nav-mobile{
+    display: none;
+    position: relative;
+}
+.nav-mobile input{
+    display: none;
+    accent-color: var(--clr-enh);
+}
+.search-p-mobile{
+    padding: 1rem;
+}
+.search-p-mobile input{
+    display: block;
+}
+
+.toggle-nav{
+    z-index: 999;
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    bottom:1rem;
+    background-color: var(--clr-ctt);
+    padding: .5rem 1rem;
+    transform:rotate(90deg);
+    transition: all 0.2s ease-in-out;    
+}
+
+#toggle:checked ~ .toggle-nav{
+    transform:rotate(0deg)
+}
+
+#toggle:checked ~ .mobile-selector{
+    transform: translate(-50%, 1000%);
+}
+
+/*      THE BOX THAT FOLLOWS THE SELECTED RADIO     */
+.myBox{
+    background-color: var(--clr-ctt);
+    height: 6rem;
+    aspect-ratio: 1;
+    border-radius: 5rem 5rem 0 0;
+    position: fixed;
+    bottom: 1rem;
+    transition: all 0.3s ease-in-out; 
+    z-index: -1;
+    margin: 0 auto;
+}
+
+.myBox::before{
+    content:"";
+    position:absolute;
+
+    background-color: transparent;
+    left: -2.5rem;
+    bottom: 3rem;
+    height: 1.5rem;
+    aspect-ratio: 2 / 1;
+    border-radius: 0 0 2.5rem 0;
+    box-shadow: 1.5rem 0 0 0 var(--clr-ctt);
+}
+
+.myBox::after{
+    content:"";
+    position:absolute;
+
+    background-color: transparent;
+    right: -2.5rem;
+    bottom: 3rem;
+    height: 1.5rem;
+    aspect-ratio: 2 / 1;
+    border-radius: 0 0 0 2.5rem;
+    box-shadow: -1.5rem 0 0 0 var(--clr-ctt);
+}
+
+
+#links:checked ~ .myBox{
+    transform: translateX(-4rem);
+}
+
+#search:checked ~ .myBox{
+    transform: translateX(4rem);
+}
+/*      */
+.mobile-selector{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+
+    color: var(--clr-fnt);
+    background-color: var(--clr-ctt);
+    height: 4rem;
+    width: 100%;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.radio-selector{
+    margin-right: 5rem;
+    border: 3px solid currentColor;
+    border-radius: 50%;
+
+    aspect-ratio: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    aspect-ratio: 1;
+    transition: all 0.4s ease-in-out; 
+}
+
+.radio-selector:last-of-type{
+    margin-right:0;
+}
+
+input[type="radio"]:checked+.radio-selector{
+    color: var(--clr-enh);
+    transform:translateY(-2rem) scale(1.5);
+    background-color: var(--clr-ctt);
+    box-shadow: 
+    inset 0 0 1px 3px rgba(var(--clr-enh-val), 0.3),
+    0 0 1px 3px rgba(var(--clr-enh-val), 0.3);
+}
+
+
+.nav-box{
+    display: none;
+    position:absolute;
+    bottom:4rem;
+    z-index: -999;
+
+    background-color: var(--clr-bgr);
+    max-height: 60vh;
+    padding-bottom: 3.5rem !important;
+    width: 90%;
+    border-radius: 1rem 1rem 0 0;
+    border: 3px solid var(--clr-enh);
+    border-bottom: none;
+    box-shadow: 0 -0.5rem 1rem var(--clr-ctt);
+
+    overflow-x: hidden;
+}
+
+#links:checked ~ #fish-box1{
+    display: flex;
+}
+#search:checked ~ #fish-box2{
+    display: block;
+}
+
+#fish-box1{
+    flex-direction: column;
+    padding: 1rem;
+    gap:0.5rem
+}
+
+
+/*      NAV FOR PC      */
+.nav-pc{
     height: 6em;
     background-color: var(--clr-ctt);
     display: flex;
@@ -58,46 +229,50 @@ nav{
     justify-content: end;
     gap: 0.8em;
 }
-nav img{
+.nav-pc img{
     height: 3.5em;
     margin-right: auto;
     margin-left: 2em;
 }
 
-.mybutton{
-
-    background: rgb(255,46,99);
-    background: linear-gradient(90deg, rgba(255,46,99,1) 0%, rgba(255,222,0,1) 100%);
-    color:var(--clr-fnt);
-    border-radius: 2em;
-    text-align: center;
-    text-shadow: 0 0 1rem var(--clr-shd);
-
-    flex:1;
-    padding: 0.75em;
-    
-    text-decoration: none;
-    font-weight: bold;
-
-    transition: all 0.2s ease-in-out;
-    position: relative;
-}
-
-nav .mybutton:last-child{
+.nav-pc a:last-of-type{
     margin-right: 2em;
 }
 
-.mybutton:hover{
-    color:var(--clr-fnt);
-    box-shadow: 3px 5px 0 var(--clr-bgr);
-    transform:translateX(-3px) translateY(-5px);
-
+/*      Carousel        */
+#carouselExampleControls{
+    width: 95%;
+    margin: auto;
 }
 
-/*      Carousel        */
-.carousel-item{
+.car-button{
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    
+    font-size: 2rem;
+    font-weight: bold;
     color: var(--clr-fnt);
-    background: var(--clr-shd);
+    text-shadow: 0 0 0.4rem #000,
+    0 0 0.4rem #000;
+    transition: all 0.2s ease-in-out;
+}
+.car-button:hover{
+    transform: translate(-50%, -50%) scale(1.2);
+    color: var(--clr-enh);
+}
+
+.carousel-item{
+    height: 16rem;
+    text-align: center;
+}
+
+.car-image{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 40%;
 }
 
 .banner-title{
@@ -106,11 +281,54 @@ nav .mybutton:last-child{
 
 /*      Search      */
 .search-p{
+    width: 95%;
     padding: 1rem;
     margin: auto;
     background-color: var(--clr-ctt);
     color: var(--clr-fnt);
     border-radius: 0 0 1rem 1rem;
+    display: flex;
+    gap: 1rem;
+    box-shadow: 0 0.5rem 0.5rem #000a;
+}
+
+.feat{
+    width: 95%;
+    margin: auto;
+    background-color: var(--clr-ctt);
+    padding: 0.5rem;
+    color: var(--clr-fnt);
+    display: flex;
+    box-shadow: 0 0.5rem 0.5rem #000a;
+}
+.search-p-mobile > .check-container{
+    margin-top: 1rem;
+    width: 100%;
+}
+.check-container{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    width: 60%;
+}
+
+.myCheck{
+    width: 16ch;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: fit-content;
+    accent-color: var(--clr-enh);
+    font-weight: bold;
+}
+
+.myCheck input{
+    background-color: var(--clr-bgr);
+}
+
+.search-box{
+    flex:1;
+    height: 2rem;
 }
 
 .search-ico{
@@ -124,78 +342,114 @@ nav .mybutton:last-child{
 }
 
 /*      Cards container     */
-.cards-container{
+#cards-container{
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 3rem;
-    margin: 0 auto;
+    margin: 1rem auto;
 }
 
+/*      card style      */
 .card{
-    border:5px solid var(--clr-shd);
-    border-radius: 1rem;
-    padding: 1rem;
+    height:400px;
+    width:300px;
     
-    margin: 1rem 0;
-    color: var(--clr-fnt);
-    background-color: var(--clr-ctt);
-
-    box-shadow: 3px 3px 10px var(--clr-ctt);
+    background-image: url('https://thumbor.bigedition.com/very-funny-pilot-cat-costume/EwWs4acthKw0N1XqeHKSwRhg3Dg=/69x0:1184x836/800x600/filters:format(webp):quality(80)/granite-web-prod/6e/34/6e3437e8d0d9424b950696ae7e977fd5.jpeg');
+    
+    background-size: cover;
+    background-position: center;
+    
+    display:flex;
+    align-items: end;
+    border: 3px solid var(--clr-shd);
+    overflow: hidden;
+    border-radius:1rem;
+    box-shadow: 0 0 1rem #000;
 
     transition: all 0.2s ease-in-out;
-}
-
-.cards-container .image{
-    height: 150px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 0.5rem;
-}
-
-.card-body{
+  }
+  
+  .card-body{
+    background: linear-gradient(
+      transparent 0%,
+      rgba(0,0,0,0.4) 10%,
+      rgba(0,0,0,1) 50%);
+    padding: 1rem;
+    color: var(--clr-fnt);
+    
     display: flex;
-    flex-flow: wrap;
-}
+    flex-direction: column;
+    align-items: end;
+    gap: 0.5rem;
+  
+    transform: translateY(45%);
+    transition:   transform 0.5s ease-in-out,
+                  opacity 2s ease-in-out;
+  }
 
-.name{
-    font-weight: bold;
-    color: var(--clr-enh)
-}
-
-.description{
-    height: 3rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.card:hover{
-    transform: scale(1.03);
-}
-
-/*      card footer     */
-.card-footer{
+  .title{
+    position:relative;
+  }
+  .title::after{
+    content: '';
+    height: 5px;
+    width: calc(100% + 1rem);
+    background-color: var(--clr-enh);
+  
+    position: absolute;
+    left:0;
+    bottom:0;
+  
+    transform-origin: right;
+    transition: all 0.5s ease;
+  
+    z-index: -1;
+  }
+  
+  .descr{
+      height: 9ch;
+      width: inherit;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background-color: rgba(0,0,0,0.25);
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+  
+      transition: all 0.5s ease-in-out;
+  }
+  
+  .card-footer{
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: end;
-}
-
-.card-footer > *{
-    flex: 1;
-}
-
-.card-footer .mybutton{
-    font-size: 0.8rem;
-    padding: 0.2rem;
-}
-
-.price::before{
-    content: "Price: $";
-}
-
-
+    align-items: center;
+  }
+  
+  .price{
+    font-weight: bold;
+  }
+  
+  .view-more{
+    text-decoration:none;
+    cursor: pointer;
+    display: inline;
+    color: var(--clr-fnt);
+    background-color: var(--clr-ctt);
+    padding: 0.25em 0.5em;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    transition: all 0.125s ease-in-out;
+    text-shadow: none;
+  }
+  
+  .view-more:hover{
+      color: var(--clr-ctt);
+      background-color: var(--clr-fnt);
+  }
 /*      Contact     */
 fieldset{
     width: fit-content;
@@ -212,6 +466,7 @@ fieldset{
     margin: 2rem auto;
 
     box-shadow: 3px 3px 10px var(--clr-ctt);
+    box-shadow: 0rem 1rem 1rem #000a;
 }
 
 fieldset *{
@@ -301,6 +556,7 @@ footer{
     align-items: center;
     
     margin-top: auto;
+    box-shadow: 0 -0.5rem 1rem #000a;
 }
 
 footer div{
@@ -313,9 +569,47 @@ footer > *{
 }
 
 
-/*      Media Query     */
+/*      ---------- Media Query ----------     */
+
+/*      CARD ANIMATIONS FOR PC       */
+@media (hover) {
+    /*      ----- CARD ANIMATIONS -----    */ 
+    /*  Make the bar appear */
+    .title::after{
+        transform: scaleX(0);
+
+    }
+    .card:hover .title::after{
+        transform: scaleX(1);
+    }
+
+    .card:hover{
+        transform: scale(1.03);
+    }
+
+    /*  Make the body appear    */
+    .card-body{
+        transform:translateY(75%)
+    }
+    .card:hover .card-body{
+        transition-delay: 0.5s;
+        transform: translateY(45%);
+    }
+    
+    /*  Make the CONTENT of the body appear */
+    .card-body > .descr{
+        opacity: 0;
+    }
+
+    .card:hover .card-body > .descr{
+        transition-delay: 0.9s;
+        opacity: 1;
+    }
+}
+
+/*      ----- LAPTOP -----        */
 @media only screen and (min-width: 1024px) and (max-width: 1439px){
-    nav{
+    .nav-pc{
         font-size: 0.8rem;
         height: fit-content;
         padding: 1rem;
@@ -327,48 +621,43 @@ footer > *{
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px){
-    nav{
-        font-size: 0.8rem;
-        height: fit-content;
-        padding-bottom: 2rem;
-        flex-flow: row wrap;
+
+/*      ----- MOBILE S -> TABLET -----      */
+@media only screen and (min-width: 320px) and (max-width: 1023px){
+    /*+++ NAV +++*/
+    .nav-pc a, .search-p:nth-child(3){
+        display: none;
     }
-    nav img{
-        padding-right: 70%;
+    .feat{
+        border-radius: 0 0 1rem 1rem;
     }
-    .mybutton{
-        flex: 1;
-        min-width: 25%;
-        max-height: 3em;
+    .nav-pc img{
+        margin: 0 auto 0 1rem;
     }
-    nav .mybutton:last-child{
-        margin-right:0;
+    header{
+        z-index: 999;
+        position:fixed;
+        top:0;
+        left:0;
+        width: 100%;
     }
 
-    footer p{
-        font-size: 1rem;
+    .nav-mobile{
+        display: block;
+        background-color: var(--clr-ctt);
     }
 
-    .search-p{
-        font-size: 0.6rem;
+    #carouselExampleControls{
+        margin-top: 6rem;
+    }
+    .car-image{
+        width: 100%;
     }
 
-}
-@media only screen and (min-width: 320px) and (max-width: 767px){
-    nav{
-        font-size: 0.8rem;
-        height: fit-content;
-        padding-bottom: 2rem;
-        flex-flow: row wrap;
-    }
     .mybutton{
         flex: 1;
         min-width: 40%;
         max-height: 3em;
-    }
-    nav .mybutton:last-child{
-        margin-right:0;
     }
 
     footer p{
@@ -376,20 +665,8 @@ footer > *{
     }
 
     .search-p{
-        font-size: 1rem;
-        display: flex;
         flex-direction: column;
         align-items: start;
-    }
-
-    .checkboxes{
-        display: flex;
-        gap: 1.1rem;
-    }
-    
-    .search-box{
-        min-width: 16rem;
-        flex:1;
     }
 
     form{

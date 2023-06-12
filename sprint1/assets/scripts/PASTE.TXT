@@ -1,0 +1,54 @@
+function cardsFilter(events, date, eventDate = 0){
+    let card = document.getElementById('cards-container')
+    let cat = document.getElementsByClassName('check-container')
+
+    let card_template = ''
+
+    let check_template = ''
+    let arr_cat=[]
+
+    let i = 0
+
+    for (let e of events){
+        if(eventDate==0){
+            i++
+            card_template += cardTemplate(e, true)//
+            if(!(arr_cat.includes(e.category))){
+                check_template += checkCategoryTemplate(e.category, i)
+                arr_cat.push(e.category)
+            }
+
+        }else if((eventDate == 1) && (e.date >= date)){
+            i++
+            card_template += cardTemplate(e)
+            if(!(arr_cat.includes(e.category))){
+                check_template += checkCategoryTemplate(e.category, i)
+                arr_cat.push(e.category)
+            }
+
+        }else if((eventDate == 2) && (e.date < date)){
+            i++
+            card_template += cardTemplate(e)
+            if(!(arr_cat.includes(e.category))){
+                check_template += checkCategoryTemplate(e.category, i)
+                arr_cat.push(e.category)
+            }
+
+        }else{
+            continue
+        }
+    }
+
+    console.log('---------------CARDS---------------')
+    console.log(card_template)
+    console.log('---------------CHECK---------------')
+    console.log(check_template)
+
+    card.innerHTML = card_template
+    for (let j=0; j < cat.length; j++){
+        cat[j].innerHTML = check_template
+        console.log(cat[j], '<------ cat J')
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------
